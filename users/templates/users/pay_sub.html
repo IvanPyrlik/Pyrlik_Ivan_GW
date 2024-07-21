@@ -1,0 +1,21 @@
+{% extends 'publications/base.html' %}
+
+{% block content %}
+    <div class="row text-center">
+        {% if user.is_authenticated %}
+            {% if not user.activ_subscription %}
+                <h4 class="my-2 font-weight-normal">С подпиской вы можете добавлять и просматривать платные публикации</h4>
+                <div class="col-center">
+                    <div class="card mb-4 box-shadow">
+                        <a href="{{ link }}" type="button"
+                           class="btn btn-lg btn-block btn-outline-info">Приобрести подписку</a>
+                        <a href="{% url 'publications:list' %}" type="button"
+                            class="btn btn-lg btn-block btn-outline-primary">Отмена</a>
+                    </div>
+                </div>
+            {% else %}
+                <h4 class="my-2 font-weight-normal">У вас уже есть подписка!</h4>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

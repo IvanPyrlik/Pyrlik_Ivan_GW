@@ -1,0 +1,22 @@
+{% extends 'publications/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <form method="POST">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="my-2 font-weight-normal">Введите данные</h4>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                            <a href="{% url 'publications:list' %}" type="button"
+                                class="btn btn-lg btn-block btn-outline-danger">Отмена</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
