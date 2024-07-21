@@ -1,0 +1,33 @@
+{% extends 'publications/base.html' %}
+
+{% block content %}
+    <div class="row text-center">
+        {% if user.is_authenticated %}
+            {% if perms.publications.add_publication %}
+                <a href="{% url 'publications:create' %}" type="button"
+                   class="btn btn-lg btn-block btn-outline-success mb-3">Новая публикация</a>
+            {% endif %}
+        {% endif %}
+        {% for object in publications_list %}
+            {% if user.is_authenticated %}
+                <div class="col-4">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header">
+                            <h4 class="my-2 font-weight-normal">Ваши публикации</h4>
+                            <p class="lead">Общее количество: {{ publications_count }}</p>
+                            <p class="lead">Активные публикации: {{ publications_count_active }}</p>
+                            <p class="lead">Платные публикации: {{ publications_count_paid }}</p>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{ object.name|title }}</h1>
+                            <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            </ul>
+                            <a href="{% url 'publications:detail' object.pk %}" type="button"
+                               class="btn btn-lg btn-block btn-outline-info">Информация о публикации</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

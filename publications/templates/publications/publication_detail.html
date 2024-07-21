@@ -1,0 +1,40 @@
+{% extends 'publications/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <div class="row text-center">
+        {% for object in object_list %}
+            <div class=" pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <h1 class="display-4">{{ object.name|title }}</h1>
+            </div>
+            <div class="col-center">
+                <img class="img-thumbnail mb-4" src="{{ object.image|mymedia }}" alt="Card image cap">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <p class="lead">{{ object.content }}</p>
+                        {% if object.paid_publication %}
+                            <h1 class="card-title pricing-card-title">Платная</h1>
+                        {% else %}
+                            <h1 class="card-title pricing-card-title">Бесплатная</h1>
+                        {% endif %}
+                        <span class="text-muted">{{ object.publication_date }}</span>
+                        <p class="text-muted">{{ object.owner|default:"Аноним" }}</p>
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        </ul>
+                        {% if user.is_authenticated %}
+                            {% if publication.owner == request.user %}
+                                {% if perms.publications.change_publication %}
+                                    <a href="{% url 'publications:update' object.pk %}" type="button"
+                                       class="btn btn-lg btn-block btn-outline-warning">Изменить</a>
+                                {% endif %}
+                                {% if perms.publications.delete_publication %}
+                                    <a href="{% url 'publications:delete' object.pk %}" type="button"
+                                       class="btn btn-lg btn-block btn-outline-danger">Удалить</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

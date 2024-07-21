@@ -1,0 +1,15 @@
+{% extends 'publications/base.html' %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class=" pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <p class="lead"> Хотите удалить публикацию {{ object.name|title }}?</p>
+        </div>
+        <div class=" pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <button type="submit" class="btn btn-lg btn-block btn-outline-danger">Удалить<</button>
+            <a href="{% url 'publications:list' %}" type="button"
+               class="btn btn-lg btn-block btn-outline-primary">Отмена</a>
+        </div>
+    </form>
+{% endblock %}

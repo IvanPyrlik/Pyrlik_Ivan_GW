@@ -1,0 +1,26 @@
+{% extends 'publications/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <form class="row text-center" method="post" enctype="multipart/form-data">
+            <div class="col-center">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="my-2 font-weight-normal">Регистрация</h4>
+                    </div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-lg btn-block btn-dark">Зарегистрироваться</button>
+                        {% if butt_add %}
+                            <a href="{% url 'users:login' %}" class="btn btn-dark"> Войти </a>
+                            <a href="{% url 'users:repeat_key' %}" class="btn btn-warning"> Получить новый ключ </a>
+                        {% endif %}
+                        <a href="{% url 'publications:list' %}" type="button"
+                           class="btn btn-lg btn-block btn-outline-danger">Отмена</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

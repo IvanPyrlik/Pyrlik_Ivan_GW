@@ -1,0 +1,25 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Публикашка</h5>
+    <nav class="ms-5">
+        <a class="p-2 btn btn-outline-warning" href="{% url 'publications:list' %}">Главная страница</a
+        <a class="p-2 ms-5 btn btn-outline-primary" href=""</a>
+        {% if user.is_authenticated %}
+            <a class="p-2 btn btn-outline-warning" href="{% url 'publications:user_public' %}">Ваши публикации</a>
+            <form class="p-2 ms-5 btn btn" method="post" action="{% url 'users:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="p-2 btn btn-outline-primary">Выход</button>
+            </form>
+        {% else %}
+            <a class="p-2 ms-5 btn btn-outline-primary" href="{% url 'users:login' %}">Вход</a>
+            <a class="p-2 btn btn-primary" href="{% url 'users:register' %}">Регистрация</a>
+        {% endif %}
+    </nav>
+    <h5 class="my-0 ms-5 mr-md-auto font-weight-normal">{{ user.first_name|title }} {{ user.last_name|title }}</h5>
+    <h5 class="my-0 ms-5 mr-md-auto font-weight-normal">{{ user.phone }}</h5>
+    {% if user.activ_subscription %}
+        <h5 class="my-0 ms-5 mr-md-auto font-weight-normal">Подписка активирована</h5>
+    {% else %}
+        <a class="p-2 ms-5 btn btn-primary" href="{% url 'users:pay_sub' %}">Оформить подписку</a>
+        <h5 class="my-0 ms-5 mr-md-auto font-weight-normal">Подписка не активирована</h5>
+    {% endif %}
+</div>
